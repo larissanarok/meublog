@@ -1,62 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistente IA</title>
+    <title>Chat com a IA - Biblioteca Virtual</title>
+    <!-- Importação do Marked.js para converter Markdown em HTML de forma segura -->
+    <script src="https://larissa-narok.app.n8n.cloud/webhook/40c0d64e-f4fe-477e-831d-5fddf4b28473"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="chat-page-body">
 
-    <!-- Container centralizado na nova página-->
+    <!-- Container Central do Chat -->
     <div class="chat-page-container">
-        <div class="chat-header">
-            <h3>Assistente IA</h3>
-            <!-- Botão para voltar para a página inicial-->
-            <a href="index.html" class="chat-back-button">Voltar</a>
-        </div>
         
+        <!-- Cabeçalho do Chat -->
+        <header class="chat-header">
+            <h3>Assistente Literário IA</h3>
+            <a href="index.html" class="chat-back-button">⬅ Voltar</a>
+        </header>
+
+        <!-- Formulário de Envio -->
         <form id="meu-form">
-        <div>
-            <label for="email">Digite seu email</label>
-            <input type="email" id="email" required>
-        </div>
-        <div>
-            <label for="message">Mande uma mensagem:</label>
-            <textarea id="message" required></textarea>
-        </div>
-        <button type="submit">Send</button>
-    </form>
+            <div>
+                <label for="email">Digite seu e-mail:</label>
+                <input type="email" id="email" required placeholder="seu-email@exemplo.com">
+            </div>
+            
+            <div>
+                <label for="message">Qual livro ou recomendação você procura?</label>
+                <textarea id="message" required placeholder="Ex: Me recomende um livro de romance histórico..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+        </form>
 
-    <!-- Elemento necessário para exibir a resposta da IA -->
-    <div id="texto-post"></div>
+        <!-- Área onde a resposta da IA será exibida -->
+        <div id="texto-post" class="chat-resposta">
+            <p style="color: #666; font-style: italic; margin: 0;">A IA está pronta para ajudar você.</p>
+        </div>
 
+    </div>
+
+    <!-- Script de Integração com o Webhook do n8n -->
     <script>
-      const form = document.getElementById('meu-form');
-      const textoPost = document.getElementById('texto-post');
+        const form = document.getElementById('meu-form');
+        const textoPost = document.getElementById('texto-post');
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        form.addEventListener('submit', async (e) => {
+            // Evita que a página recarregue ao enviar o formulário
+            e.preventDefault(); 
+            
+            // Exibe mensagem de carregamento amigável
+            textoPost.innerHTML = "<p><strong>🤖 A IA está pensando...</strong> Por favor, aguarde.</p>";
 
-        textoPost.innerText = "🤖 A IA está pensando...";
+            try {
+                // Faz a requisição direto para o Webhook de PRODUÇÃO do n8n
+                const response = await fetch('https://larissa-narok.app.n8n.cloud/webhook/40c0d64e-f4fe-477e-831d-5fddf4b28473', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        message: document.getElementById('message').value
+                    })
+                });
 
-        // Faz a requisição direto para o Webhook de PRODUÇÃO do n8n
-        const response = await fetch('https://larissa-narok.app.n8n.cloud/webhook/40c0d64e-f4fe-477e-831d-5fddf4b28473', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-          })
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor.');
+                }
+
+                // Pede para o navegador ler a resposta como texto puro
+                const text = await response.text();
+                
+                // Converte o Markdown recebido da IA em HTML e exibe na tela
+                textoPost.innerHTML = marked.parse(text);
+
+            } catch (error) {
+                // Tratamento básico de erro caso o webhook falhe
+                textoPost.innerHTML = "<p style='color: red;'><strong>❌ Erro:</strong> Não foi possível conectar à IA. Tente novamente mais tarde.</p>";
+                console.error('Erro na requisição:', error);
+            }
         });
-
-        // Pede para o navegador ler a resposta como texto puro
-        const text = await response.text();
-
-        // Substitui o texto pela resposta da IA!
-        textoPost.innerHTML = marked.parse(text);
-      });
     </script>
-</body>-->
+
+</body>
 </html>
