@@ -1,62 +1,197 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Biblioteca Virtual</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Menu de Navegação -->
+    <!-- ================= MENU ================= -->
+
     <nav>
         <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Catálogo</a>
-        <a href="#" class="nav-link">Sobre</a>
+        <a href="#catalogo" class="nav-link">Catálogo</a>
+        <a href="#contato" class="nav-link">Contato</a>
     </nav>
 
-    <!-- Título Principal -->
+    <!-- ================= CABEÇALHO ================= -->
+
     <header class="main-header">
+
         <h1>Biblioteca Virtual</h1>
-        <p>Explore o universo das palavras</p>
+
+        <p>
+            Explore histórias incríveis e descubra novos mundos através da leitura.
+        </p>
+
     </header>
 
-    <!-- Seção Principal de Livros -->
-    <main class="content-container">
-        <h2 class="section-title">Destaques da Semana</h2>
-        
-        <!-- Grade de Livros (Adicione novos itens aqui) -->
+    <!-- ================= CATÁLOGO ================= -->
+
+    <main class="content-container" id="catalogo">
+
+        <h2 class="section-title">
+            Destaques da Semana
+        </h2>
+
         <div class="books-grid">
-            
+
             <!-- Livro 1 -->
+
             <div class="book-card">
-                <div class="book-cover-placeholder">📖</div>
-                <h3>Título do Livro 1</h3>
-                <p>Autor do Livro 1</p>
-                <a href="#" class="btn-detalhes">Ver Detalhes</a>
+
+                <div class="book-image">
+
+                    <img
+                        src="imagens/pequeno-principe.jpg"
+                        alt="O Pequeno Príncipe">
+
+                </div>
+
+                <h3>O Pequeno Príncipe</h3>
+
+                <p>Antoine de Saint-Exupéry</p>
+
+                <a
+                    href="pequeno-principe.html"
+                    class="btn-detalhes">
+
+                    Ver Detalhes
+
+                </a>
+
             </div>
 
             <!-- Livro 2 -->
+
             <div class="book-card">
-                <div class="book-cover-placeholder">📖</div>
-                <h3>Título do Livro 2</h3>
-                <p>Autor do Livro 2</p>
-                <a href="#" class="btn-detalhes">Ver Detalhes</a>
+
+                <div class="book-image">
+
+                    <img
+                        src="imagens/a-menina-que-roubava-livros.jpg"
+                        alt="A Menina que Roubava Livros">
+
+                </div>
+
+                <h3>A Menina que Roubava Livros</h3>
+
+                <p>Markus Zusak</p>
+
+                <a
+                    href="menina-que-roubava-livros.html"
+                    class="btn-detalhes">
+
+                    Ver Detalhes
+
+                </a>
+
             </div>
 
             <!-- Livro 3 -->
+
             <div class="book-card">
-                <div class="book-cover-placeholder">📖</div>
-                <h3>Título do Livro 3</h3>
-                <p>Autor do Livro 3</p>
-                <a href="#" class="btn-detalhes">Ver Detalhes</a>
+
+                <div class="book-image">
+
+                    <img
+                        src="imagens/coraline.jpg"
+                        alt="Coraline">
+
+                </div>
+
+                <h3>Coraline</h3>
+
+                <p>Neil Gaiman</p>
+
+                <a
+                    href="coraline.html"
+                    class="btn-detalhes">
+
+                    Ver Detalhes
+
+                </a>
+
             </div>
 
         </div>
+
     </main>
 
-    <!-- Botão Flutuante da IA -->
-    <a href="chat.html" class="chat-toggle-button">💬 Perguntar à IA</a>
+    <!-- ================= CONTATO ================= -->
+
+    <section
+        class="content-container"
+        id="contato">
+
+        <div class="contato-box">
+
+            <h2 class="section-title">
+                Entre em Contato
+            </h2>
+
+            <p>
+                Gostou da Biblioteca Virtual ou deseja entrar em contato comigo?
+                Envie uma mensagem utilizando o formulário abaixo.
+            </p>
+
+            <form
+                action="https://formspree.io/f/xvzeyaad"
+                method="POST">
+
+                <label for="emailContato">
+
+                    Seu e-mail
+
+                </label>
+
+                <input
+                    type="email"
+                    id="emailContato"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    required>
+
+                <label for="mensagemContato">
+
+                    Sua mensagem
+
+                </label>
+
+                <textarea
+                    id="mensagemContato"
+                    name="message"
+                    rows="6"
+                    placeholder="Escreva sua mensagem..."
+                    required></textarea>
+
+                <button type="submit">
+
+                    Enviar Mensagem
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- ================= BOTÃO IA ================= -->
+
+    <a
+        href="chat.html"
+        class="chat-toggle-button">
+
+        💬 Perguntar à IA
+
+    </a>
 
 </body>
+
 </html>
